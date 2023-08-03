@@ -1,9 +1,9 @@
 name: Daily Github-Trending
 run-name: ${{ github.actor }} is collecting Github-Trending 🚀
-on: [push]
-  # schedule:
-  #   # UTC time 1:00AM every weekday
-  #   - cron: "0 1 * * 1-5"
+on:
+  schedule:
+    # UTC time 1:00AM every weekday
+    - cron: "0 1 * * 1-5"
 
 jobs:
   build:
