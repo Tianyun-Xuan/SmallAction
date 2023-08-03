@@ -33,7 +33,7 @@ jobs:
         echo start push
         git config --global user.name "introverti"
         git config --global user.email "x523356708@gamil.com"
-        git add *.md
+        git add github_trending/
         git commit -m $(date +%d-%m-%Y)
 
     # - name: Set output variables
