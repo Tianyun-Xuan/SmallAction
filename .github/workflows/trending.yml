@@ -33,15 +33,21 @@ jobs:
         echo start push
         git config --global user.name "introverti"
         git config --global user.email "x523356708@gamil.com"
-        
-        git add github_trending/
-# git commit -m $(date '+%Y-%m-%d')
-    
+
+    - name: Set output variables
+      id: vars
+      run: |
+          pr_title="[Daily] Github-Trending $(date +%d-%m-%Y)"
+          pr_msg="This PR was auto-generated on $(date +%d-%m-%Y) \
+            by [create-pull-request](https://github.com/peter-evans/create-pull-request)."
+          echo "pr_title=$pr_title" >> $GITHUB_OUTPUT
+          echo "pr_body=$pr_msg" >> $GITHUB_OUTPUT
+
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v5.0.2
       with:
-        title: Daily Github-Trending $(date '+%Y-%m-%d')
-        commit-message: $(date '+%Y-%m-%d')
+        title: ${{ steps.vars.outputs.pr_title }}
+        commit-message: ${{ steps.vars.outputs.pr_msg }}
         github_token: ${{ secrets.MY_PAT_TOKEN  }}
 
 
