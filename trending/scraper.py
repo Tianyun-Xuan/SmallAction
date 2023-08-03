@@ -57,9 +57,12 @@ def scrape(language, filename):
 def job():
     strdate = datetime.datetime.now().strftime('%Y-%m-%d')
     filename = '{date}.md'.format(date=strdate)
+    dirname = 'github_trending'
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
 
     # create markdown file
-    createMarkdown(strdate, os.path.join("github_trending", filename))
+    createMarkdown(strdate, os.path.join(dirname, filename))
 
     # write markdown
     scrape('python', filename)
