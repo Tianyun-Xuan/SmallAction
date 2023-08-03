@@ -24,3 +24,4 @@ Error: Invalid exit code: 128
     at Process.ChildProcess._handle.onexit (node:internal/child_process:302:5) {
   code: 128
 }
+https://github.com/ad-m/github-push-action/issues/96
