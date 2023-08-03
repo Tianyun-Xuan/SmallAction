@@ -48,7 +48,7 @@ jobs:
       with:
         title: ${{ steps.vars.outputs.pr_title }}
         commit-message: ${{ steps.vars.outputs.pr_msg }}
-        github_token: ${{ secrets.MY_PAT_TOKEN  }}
+        token: ${{ secrets.MY_PAT_TOKEN  }}
 
 
     # - name: Push changes
