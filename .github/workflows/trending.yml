@@ -1,9 +1,9 @@
 name: Daily Github-Trending
 run-name: ${{ github.actor }} is collecting Github-Trending 🚀
-on:
-  schedule:
-    # UTC time 1:00AM every weekday
-    - cron: "0 1 * * 1-5"
+on: [push]
+  # schedule:
+  #   # UTC time 1:00AM every weekday
+  #   - cron: "0 1 * * 1-5"
 
 jobs:
   build:
@@ -33,19 +33,28 @@ jobs:
         echo start push
         git config --global user.name "introverti"
         git config --global user.email "x523356708@gamil.com"
+        git add *.md
+        git commit -m $(date +%d-%m-%Y)
 
-    - name: Set output variables
-      id: vars
-      run: |
-          pr_title="[Daily] Github-Trending $(date +%d-%m-%Y)"
-          pr_msg="This PR was auto-generated on $(date +%d-%m-%Y) \
-            by [create-pull-request](https://github.com/peter-evans/create-pull-request)."
-          echo "pr_title=$pr_title" >> $GITHUB_OUTPUT
-          echo "pr_msg=$pr_msg" >> $GITHUB_OUTPUT
+    # - name: Set output variables
+    #   id: vars
+    #   run: |
+    #       pr_title="[Daily] Github-Trending $(date +%d-%m-%Y)"
+    #       pr_msg="This PR was auto-generated on $(date +%d-%m-%Y) \
+    #         by [create-pull-request](https://github.com/peter-evans/create-pull-request)."
+    #       echo "pr_title=$pr_title" >> $GITHUB_OUTPUT
+    #       echo "pr_msg=$pr_msg" >> $GITHUB_OUTPUT
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v5.0.2
+    # - name: Create Pull Request
+    #   uses: peter-evans/create-pull-request@v5.0.2
+    #   with:
+    #     title: ${{ steps.vars.outputs.pr_title }}
+    #     commit-message: ${{ steps.vars.outputs.pr_msg }}
+    #     token: ${{ secrets.MY_PAT_TOKEN  }}
+
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        title: ${{ steps.vars.outputs.pr_title }}
-        commit-message: ${{ steps.vars.outputs.pr_msg }}
-        token: ${{ secrets.MY_PAT_TOKEN  }}
+        github_token: ${{ secrets.MY_PAT_TOKEN  }}
+        branch: main
