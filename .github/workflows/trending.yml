@@ -1,9 +1,9 @@
 name: Daily Github-Trending
 run-name: ${{ github.actor }} is collecting Github-Trending 🚀
-on: [push]
-  # schedule:
-  #   # UTC time 1:00AM every weekday
-  #   - cron: "0 1 * * 1-5"
+on:
+  schedule:
+    # UTC time 1:00AM every weekday
+    - cron: "0 1 * * 1-5"
 
 jobs:
   build:
@@ -49,10 +49,3 @@ jobs:
         title: ${{ steps.vars.outputs.pr_title }}
         commit-message: ${{ steps.vars.outputs.pr_msg }}
         token: ${{ secrets.MY_PAT_TOKEN  }}
-
-
-    # - name: Push changes
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     github_token: ${{ secrets.MY_PAT_TOKEN  }}
-    #     branch: main
