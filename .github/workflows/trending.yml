@@ -1,9 +1,9 @@
 name: Daily Github-Trending
 run-name: ${{ github.actor }} is collecting Github-Trending 🚀
-on:
-  schedule:
-    # UTC time 1:00AM every weekday
-    - cron: "0 1 * * 1-5"
+on: [push]
+  # schedule:
+  #   # UTC time 1:00AM every weekday
+  #   - cron: "0 1 * * 1-5"
 
 jobs:
   build:
@@ -33,7 +33,6 @@ jobs:
         echo start push
         git config --global user.name "introverti"
         git config --global user.email "x523356708@gamil.com"
-        git checkout -b trending
         
         git add *.md
         git commit -m $(date '+%Y-%m-%d')
@@ -42,4 +41,5 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.MY_PAT_TOKEN  }}
-        branch: trending
+        repository: introverti/github-trending
+        branch: main
