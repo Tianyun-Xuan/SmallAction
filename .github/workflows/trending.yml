@@ -36,9 +36,15 @@ jobs:
         
         git add github_trending/
         git commit -m $(date '+%Y-%m-%d')
-
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+    
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5.0.2
       with:
         github_token: ${{ secrets.MY_PAT_TOKEN  }}
-        branch: main
+
+
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.MY_PAT_TOKEN  }}
+    #     branch: main
