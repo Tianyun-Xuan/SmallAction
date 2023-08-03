@@ -59,7 +59,7 @@ def job():
     filename = '{date}.md'.format(date=strdate)
 
     # create markdown file
-    createMarkdown(strdate, filename)
+    createMarkdown(strdate, os.path.join("github_trending", filename))
 
     # write markdown
     scrape('python', filename)
