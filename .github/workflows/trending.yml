@@ -37,6 +37,7 @@ jobs:
         git commit -m $(date '+%Y-%m-%d')
 
     - name: Push changes
-      uses: ad-m/github-push-action@main
+      uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.MY_PAT_TOKEN  }}
+        branch: example_action
