@@ -23,7 +23,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r trending/requirements.txt
 
-  tasks:
     - name: Run Scraper
       run: |
         python trending/scraper.py
