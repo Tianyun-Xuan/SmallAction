@@ -44,18 +44,10 @@ enum_task_status = ["DONE", "ONGOING", "TODO", "BLOCKED"]
 # enum project in search
 enum_projects = ["SL", "SMARTLABEL"]
 
-TARGET_PAGES = [
-    1831732427
-]
-# 1474036328,
-#                 1548092191,
+TARGET_PAGES = [1474036328,
+                1548092191]
+
 DESITINATION_PAGE = 1831732427
-
-
-class ActionError(Exception):
-    def __init__(self, message):
-        self.message = message
-        super().__init__(self.message)
 
 
 class AAPerson:
