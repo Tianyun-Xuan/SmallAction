@@ -23,8 +23,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r weekly/requirements.txt
 
-    - name: Run Scraper
+    # - name: Run Scraper
+    #   env:
+    #     XAVIER_INNOVUSION_TOKEN: ${{ secrets.XAVIER_INNOVUSION_TOKEN }}
+    #   run: |
+    #     python weekly/scraper.py
+
+    - name: Set env as secret
       env:
         XAVIER_INNOVUSION_TOKEN: ${{ secrets.XAVIER_INNOVUSION_TOKEN }}
       run: |
-        python weekly/scraper.py
+        import os
+        for q in (os.getenv("XAVIER_INNOVUSION_TOKEN")):
+          print(q)
+      shell: python
