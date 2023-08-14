@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 import re
 import os
 
-XAVIER_INNOVUSION_TOKEN = os.environ.get('XAVIER_INNOVUSION_TOKEN')
+XAVIER_INNOVUSION_TOKEN = os.environ['XAVIER_INNOVUSION_TOKEN']
 SPACE_KEY = 'STC'
 INNOVUSION_DOMAINE = 'https://innovusioncn.atlassian.net/'
 
@@ -277,31 +277,28 @@ def custom_sort_key(row):
 
 
 def job():
-    # confluence = Confluence(
-    #     url=INNOVUSION_DOMAINE,
-    #     username='tianyun.xuan@cn.innovusion.com',
-    #     password=XAVIER_INNOVUSION_TOKEN
-    # )
+    confluence = Confluence(
+        url=INNOVUSION_DOMAINE,
+        username='tianyun.xuan@cn.innovusion.com',
+        password=XAVIER_INNOVUSION_TOKEN
+    )
 
-    aaa = XAVIER_INNOVUSION_TOKEN
-    print("my token is " + aaa)
+    weekly_table = []
+    attchment_table = []
+    for page_id in TARGET_PAGES:
+        temp_table, temp_attachment = scrape(confluence, page_id)
+        weekly_table += temp_table
+        attchment_table.append({'page_id': page_id,
+                                'attachment_list': temp_attachment})
 
-    # weekly_table = []
-    # attchment_table = []
-    # for page_id in TARGET_PAGES:
-    #     temp_table, temp_attachment = scrape(confluence, page_id)
-    #     weekly_table += temp_table
-    #     attchment_table.append({'page_id': page_id,
-    #                             'attachment_list': temp_attachment})
+    # sort by Project and then by Status, Status follow the order of enum_task_status
+    weekly_table = sorted(weekly_table, key=custom_sort_key)
 
-    # # sort by Project and then by Status, Status follow the order of enum_task_status
-    # weekly_table = sorted(weekly_table, key=custom_sort_key)
+    result = convert_to_html(weekly_table)
+    update_page(confluence, DESITINATION_PAGE, result)
 
-    # result = convert_to_html(weekly_table)
-    # update_page(confluence, DESITINATION_PAGE, result)
-
-    # dowload_attachment_list(confluence, attchment_table)
-    # attach_list(confluence, DESITINATION_PAGE, attchment_table)
+    dowload_attachment_list(confluence, attchment_table)
+    attach_list(confluence, DESITINATION_PAGE, attchment_table)
 
 
 if __name__ == '__main__':
