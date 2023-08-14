@@ -25,6 +25,6 @@ jobs:
 
     - name: Run Scraper
       env: 
-        XAVIER_INNOVUSION_TOKEN: ${{ secrets.XAVIER_INNOVUSION_TOKEN }}
+        XAVIER_INNOVUSION_TOKEN: '${{ secrets.XAVIER_INNOVUSION_TOKEN }}'
       run: python weekly/scraper.py 
 
