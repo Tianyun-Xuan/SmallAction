@@ -24,5 +24,7 @@ jobs:
         pip install -r weekly/requirements.txt
 
     - name: Run Scraper
+      env:
+        XAVIER_INNOVUSION_TOKEN: ${{ secrets.XAVIER_INNOVUSION_TOKEN }}
       run: |
         python weekly/scraper.py
