@@ -42,7 +42,10 @@ ARROBAS = '<ac:link><ri:user ri:account-id="{uuid}"></ri:user></ac:link>'
 # enum task status
 enum_task_status = ["DONE", "ONGOING", "TODO", "BLOCKED"]
 # enum project in search
-enum_projects = ["SL", "SMARTLABEL"]
+enum_projects = {
+    'SL': 'SL',
+    'SMARTLABEL': 'SL'
+}
 
 TARGET_PAGES = [1474036328,
                 1548092191]
@@ -59,6 +62,17 @@ class AAPerson:
 
     def person_site(self):
         return '[{Name}]({Domain}wiki/people/{Id})'.format(Name=self.displayName, Domain=INNOVUSION_DOMAINE, Id=self.accountId)
+
+
+def is_valid_project(row) -> bool:
+    assert isinstance(row, list)
+    assert len(row) >= 1
+    # remove all the html tags
+    project = BeautifulSoup(row[0], 'html.parser').get_text().upper()
+    if project in enum_projects:
+        row[0] = '<p> <strong> ' + enum_projects[project] + ' </strong> </p>'
+        return True
+    return False
 
 
 def parse_table(html):
@@ -103,6 +117,10 @@ def parse_table(html):
         for index in header_index:
             sorted_row.append(row[index])
         sorted_table_data.append(sorted_row)
+
+    # keep only project in enum_projects
+    sorted_table_data = [
+        row for row in sorted_table_data if is_valid_project(row)]
 
     return sorted_table_data
 
@@ -230,7 +248,8 @@ def download_attachment_file(confluence: Confluence, page_id, filename, director
 
 
 def dowload_attachment_list(confluence: Confluence, attachment_table: list, directory: str = 'attachment'):
-    os.mkdir(directory)
+    if not os.path.exists(directory):
+        os.mkdir(directory)
     for page in attachment_table:
         for filename in page['attachment_list']:
             download_attachment_file(
@@ -251,7 +270,9 @@ def attach_list(confluence: Confluence, page_id, attachment_table: list, directo
 
 def custom_sort_key(row):
     project = row[0]
-    status = row[2].split('<p>')[1].split('</p>')[0]
+    # remove all the html tags
+    status = BeautifulSoup(row[2], 'html.parser').get_text().upper()
+    row[2] = '<p> <strong> ' + status + ' </strong> </p>'
     return (project, enum_task_status.index(status))
 
 
