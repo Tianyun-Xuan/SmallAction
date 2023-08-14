@@ -277,29 +277,31 @@ def custom_sort_key(row):
 
 
 def job():
-    print (XAVIER_INNOVUSION_TOKEN)
-    confluence = Confluence(
-        url=INNOVUSION_DOMAINE,
-        username='tianyun.xuan@cn.innovusion.com',
-        password=XAVIER_INNOVUSION_TOKEN
-    )
+    # confluence = Confluence(
+    #     url=INNOVUSION_DOMAINE,
+    #     username='tianyun.xuan@cn.innovusion.com',
+    #     password=XAVIER_INNOVUSION_TOKEN
+    # )
 
-    weekly_table = []
-    attchment_table = []
-    for page_id in TARGET_PAGES:
-        temp_table, temp_attachment = scrape(confluence, page_id)
-        weekly_table += temp_table
-        attchment_table.append({'page_id': page_id,
-                                'attachment_list': temp_attachment})
+    aaa = XAVIER_INNOVUSION_TOKEN
+    print("my token is " + aaa)
 
-    # sort by Project and then by Status, Status follow the order of enum_task_status
-    weekly_table = sorted(weekly_table, key=custom_sort_key)
+    # weekly_table = []
+    # attchment_table = []
+    # for page_id in TARGET_PAGES:
+    #     temp_table, temp_attachment = scrape(confluence, page_id)
+    #     weekly_table += temp_table
+    #     attchment_table.append({'page_id': page_id,
+    #                             'attachment_list': temp_attachment})
 
-    result = convert_to_html(weekly_table)
-    update_page(confluence, DESITINATION_PAGE, result)
+    # # sort by Project and then by Status, Status follow the order of enum_task_status
+    # weekly_table = sorted(weekly_table, key=custom_sort_key)
 
-    dowload_attachment_list(confluence, attchment_table)
-    attach_list(confluence, DESITINATION_PAGE, attchment_table)
+    # result = convert_to_html(weekly_table)
+    # update_page(confluence, DESITINATION_PAGE, result)
+
+    # dowload_attachment_list(confluence, attchment_table)
+    # attach_list(confluence, DESITINATION_PAGE, attchment_table)
 
 
 if __name__ == '__main__':
