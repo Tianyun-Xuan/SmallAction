@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 import re
 import os
 
-XAVIER_INNOVUSION_TOKEN = os.environ['XAVIER_INNOVUSION_TOKEN']
+XAVIER_INNOVUSION_TOKEN = os.getenv('XAVIER_INNOVUSION_TOKEN')
 SPACE_KEY = 'STC'
 INNOVUSION_DOMAINE = 'https://innovusioncn.atlassian.net/'
 
@@ -302,6 +302,4 @@ def job():
 
 
 if __name__ == '__main__':
-    # job()
-    for q in (os.getenv("XAVIER_INNOVUSION_TOKEN")):
-          print(q)
+    job()
