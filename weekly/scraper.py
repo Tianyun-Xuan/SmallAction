@@ -277,6 +277,7 @@ def custom_sort_key(row):
 
 
 def job():
+    print (XAVIER_INNOVUSION_TOKEN)
     confluence = Confluence(
         url=INNOVUSION_DOMAINE,
         username='tianyun.xuan@cn.innovusion.com',

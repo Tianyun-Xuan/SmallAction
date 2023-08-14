@@ -27,5 +27,4 @@ jobs:
       env:
         XAVIER_INNOVUSION_TOKEN: ${{ secrets.XAVIER_INNOVUSION_TOKEN }}
       run: |
-        echo "using token: $XAVIER_INNOVUSION_TOKEN"
         python weekly/scraper.py
