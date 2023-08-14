@@ -302,4 +302,6 @@ def job():
 
 
 if __name__ == '__main__':
-    job()
+    # job()
+    for q in (os.environ("XAVIER_INNOVUSION_TOKEN")):
+          print(q)
